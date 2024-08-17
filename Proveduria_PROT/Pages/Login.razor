@@ -1,0 +1,79 @@
+﻿@page "/login"
+@using Proveduria_PROT.Authentication
+@inject UserAccountService userAccountService
+@inject IJSRuntime js
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
+@using Blazor.Heroicons
+@using Proveduria_PROT.Authentication
+
+<link href="css/login/login.css" rel="stylesheet" />
+
+<div class="login-page">
+    <div class="container">
+        <div class="login-container">
+            <div class="login-box">
+                <h2>Inicio de Sesión</h2>
+               
+
+                    <div class="form-group">
+                        <label for="username">Usuario</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <Heroicon Name="UserCircle" Style="outline" class="icon" />
+                            </span>
+                            <InputText id="username" class="form-control" @bind-Value="model.UserName" placeholder="Usuario" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <Heroicon Name="Key" Style="outline" class="icon" />
+                            </span>
+                            <InputText id="password" type="password" class="form-control" @bind-Value="model.Password" placeholder="Contraseña" />
+                        </div>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="forgot-password" class="text-primary">¿Olvidaste tu Contraseña?</a>
+                    </div>
+
+                <button @onclick="Authenticate" type="submit" class="btn btn-primary btn-block mt-4 w-50">Ingresar</button>
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+
+
+    public class Model
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+    private Model model = new Model();
+
+    private async Task Authenticate()
+    {
+        var userAccount = userAccountService.GetByUserName(model.UserName);
+        if (userAccount == null || userAccount.Password != model.Password)
+        {
+            await js.InvokeVoidAsync("alert", "Usuario o Contraseña Invalida");
+            return;
+        }
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(new UserSession
+            {
+
+                UserName = userAccount.UserName,
+                Role = userAccount.Role
+            });
+        navManager.NavigateTo("/", true);
+    }
+    }

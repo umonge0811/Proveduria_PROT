@@ -1,0 +1,130 @@
+﻿body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+.icon {
+    width:28px;
+    height:28px;
+    color:gray;
+}
+
+.login-page {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #121212;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    background-color: #282828;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    margin-top: 160px; /* Este ajuste centrará más la caja verticalmente */
+}
+
+h2 {
+    color: #CCCCCC;
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+    .form-group label {
+        color: #545F71;
+        font-size: 14px;
+        margin-bottom: 5px;
+        font-weight: 400;
+    }
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #545F71;
+    border-radius: 6px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.input-group-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    background-color: transparent; /* Asegura que el fondo sea transparente */
+    padding: 0;
+    margin-left: 10px;
+    border: none; /* Elimina cualquier borde */
+    box-shadow: none; /* Elimina cualquier sombra */
+}
+
+
+.form-control {
+    border: none;
+    padding: 12px;
+    color: #9BA5B7;
+    font-size: 16px;
+    flex-grow: 1;
+    height: 48px; /* Ajustar la altura del input */
+}
+
+.forgot-password {
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+    .forgot-password a {
+        color: #007BFF;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+
+
+.btn-primary {
+    background-color: #545F71;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    width: 100%;
+    color: white;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+    .btn-primary:hover {
+        background-color: #404e5c;
+    }
+
+
+
