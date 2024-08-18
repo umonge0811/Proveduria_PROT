@@ -1,5 +1,4 @@
 ﻿@page "/"
-@inject IJSRuntime js
 
 <PageTitle>Index</PageTitle>
 
@@ -8,19 +7,18 @@
        <h1>Bienvenido, @context.User.Identity.Name!</h1>
     </Authorized>
     <NotAuthorized>
-        <h1>Hola,Usuario Invitado</h1>
+        <h1>Hola, Debes iniciar Sesión</h1>
+        Sistema de Proveduria
     </NotAuthorized>
 </AuthorizeView>
 
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
 
 <AuthorizeView>
     <Authorized>
-        <br /><br />
-        <button class="btn btn-outline-primary" @onclick="DisplayGreetingAlert">Alerta de Bienvenida</button>
+       
     </Authorized>
 </AuthorizeView>
 
@@ -28,12 +26,6 @@ Welcome to your new app.
 {
     [CascadingParameter]
     private Task<AuthenticationState> authenticationState { get; set; }
-    private async Task DisplayGreetingAlert()
-    {
-        var authState = await authenticationState;
-        var message = $"Hola {authState.User.Identity.Name}";
-        js.InvokeVoidAsync("alert", message);
 
-    }
-
+    
 }

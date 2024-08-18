@@ -1,8 +1,14 @@
-﻿<div class="top-row ps-3 navbar navbar-dark bg-dark">
+﻿@using Proveduria_PROT.Authentication
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
+
+
+
+<div class="top-row ps-3 navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="">
             <img src="img/ulises perfil .jpg" alt="Profile" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" class="me-2" />
-            Proveduria_Analisis
+            Proveduria Analisis
         </a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
@@ -57,14 +63,16 @@
                 <hr class="bg-secondary">
                 <div class="nav-item px-3">
                     <NavLink class="nav-link text-white" href="about">
-                        <span class="oi oi-info" aria-hidden="true"></span> Acerca de
-                    </NavLink>
+                        <Heroicon Name="InformationCircle" Style="outline" class="me-2 small-icon" /> Acerca de
+@*                         <span class="oi oi-info" aria-hidden="true"></span> Acerca de
+ *@                    </NavLink>
                 </div>
                 <div class="nav-item px-3">
-                    <NavLink class="nav-link text-white" href="logout">
+                    <NavLink class="nav-link text-white" href="javascript:void(0);" @onclick="Logout">
                         <span class="oi oi-account-logout" aria-hidden="true"></span> Salir
                     </NavLink>
                 </div>
+
             </Authorized>
         </AuthorizeView>
     </div>
@@ -79,4 +87,29 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+    private async Task Logout()
+    {
+        // Mostrar alerta de despedida con fondo oscuro y timer
+        await js.InvokeVoidAsync("Swal.fire", new
+        {
+            title = "Sesión cerrada",
+            text = "Has cerrado sesión correctamente.",
+            icon = "info",
+            background = "#1e1e1e",  // Fondo oscuro
+            color = "#fff",  // Texto blanco
+            timer = 1500,  // Tiempo en milisegundos
+            showConfirmButton = false  // No mostrar el botón de confirmación
+        });
+
+        // Esperar un poco para dar tiempo a que la alerta se cierre antes de redirigir
+        await Task.Delay(1500);
+
+        // Actualizar el estado de autenticación
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+
+        // Redirigir a la página principal
+        navManager.NavigateTo("/", true);
+    }
+
 }

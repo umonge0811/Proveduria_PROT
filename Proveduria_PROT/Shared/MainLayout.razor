@@ -5,7 +5,7 @@
 
 
 
-<PageTitle>Proveduria_PROT</PageTitle>
+<PageTitle>Proveduria</PageTitle>
 
 <div class="page">
     <div class="sidebar">
@@ -14,14 +14,13 @@
 
     <main>
         <div class="top-row px-4 navbar-dark bg-dark">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
             <AuthorizeView>
                 <Authorized>
                     <a @onclick="Logout" href="javascript:void(0)">Salir</a>
                 </Authorized>
            
                 <NotAuthorized>
-                    <a href="/login">Login</a>
+                    <a href="/login">Iniciar Sesión</a>
                 </NotAuthorized>
             </AuthorizeView>
         </div>

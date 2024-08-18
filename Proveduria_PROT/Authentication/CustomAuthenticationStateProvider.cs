@@ -24,19 +24,21 @@ namespace Proveduria_PROT.Authentication
                 var userSession = userSessionStorageResult.Success ? userSessionStorageResult.Value : null;
                 if (userSession == null)
                     return await Task.FromResult(new AuthenticationState(_anonymous));
+
                 var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, userSession.UserName),
-                new Claim(ClaimTypes.Role, userSession.Role)
-            }, "CustomAuth"));
+        {
+            new Claim(ClaimTypes.Name, userSession.FullName), // Aquí usamos el nombre completo
+            new Claim(ClaimTypes.Role, userSession.Role)
+        }, "CustomAuth"));
+
                 return await Task.FromResult(new AuthenticationState(claimsPrincipal));
             }
             catch (Exception)
             {
-
                 return await Task.FromResult(new AuthenticationState(_anonymous));
-            }        
+            }
         }
+
         public async Task UpdateAuthenticationState(UserSession userSession)
         {
             ClaimsPrincipal claimsPrincipal;

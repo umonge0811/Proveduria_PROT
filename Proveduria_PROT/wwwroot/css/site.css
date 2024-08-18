@@ -66,3 +66,8 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.small-icon {
+    width: 20px;
+    height: 20px;
+}

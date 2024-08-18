@@ -8,10 +8,10 @@
         {
             _users = new List<UserAccount>
             {
-                new UserAccount { UserName = "Admin", Password = "admin", Role = "Administrador"},
-                new UserAccount { UserName = "Compras1", Password = "comp123", Role = "Comprador"},
-                new UserAccount { UserName = "Jefe", Password = "jefe123", Role = "Jefatura" },
-                new UserAccount { UserName = "Aprobador1", Password = "Aprob123", Role = "Aprobador" }
+                new UserAccount { UserName = "Admin", Password = "admin", Role = "Administrador", Name="Ulises Monge"},
+                new UserAccount { UserName = "Compras1", Password = "comp123", Role = "Comprador", Name = "kevin Núñez"},
+                new UserAccount { UserName = "Jefe", Password = "jefe123", Role = "Jefatura" ,Name = "Elías Méndez" },
+                new UserAccount { UserName = "Aprobador1", Password = "Aprob123", Role = "Aprobador", Name = "Dayana Murillo" }
 
             };
         }
