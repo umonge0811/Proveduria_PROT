@@ -1,14 +1,14 @@
 ﻿@using Proveduria_PROT.Authentication
-@using System.Security.Claims
 @inject AuthenticationStateProvider authStateProvider
-@inject UserAccountService userAccountService
 @inject NavigationManager navManager
+
+
 
 <div class="top-row ps-3 navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="">
-            <img src="@profileImagePath" alt="Profile" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" class="me-2" />
-            @roleTitle
+            <img src="img/ulises perfil .jpg" alt="Profile" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" class="me-2" />
+            Proveduria Analisis
         </a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
@@ -64,7 +64,8 @@
                 <div class="nav-item px-3">
                     <NavLink class="nav-link text-white" href="about">
                         <Heroicon Name="InformationCircle" Style="outline" class="me-2 small-icon" /> Acerca de
-                    </NavLink>
+@*                         <span class="oi oi-info" aria-hidden="true"></span> Acerca de
+ *@                    </NavLink>
                 </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link text-white" href="javascript:void(0);" @onclick="Logout">
@@ -78,35 +79,14 @@
 </div>
 
 @code {
-    private string profileImagePath = "img/default.jpg"; // Imagen por defecto
-    private string roleTitle = "Proveduria Analisis";
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await authStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        if (user.Identity.IsAuthenticated)
-        {
-            profileImagePath = user.FindFirst("ProfileImagePath")?.Value ?? "img/default.jpg";
-            roleTitle = user.FindFirst(ClaimTypes.Role)?.Value ?? "Proveduria Analisis";
-
-            Console.WriteLine($"Profile Image Path: {profileImagePath}"); // Debugging
-            Console.WriteLine($"Role Title: {roleTitle}");
-
-            StateHasChanged(); // Forzar una actualización de la UI
-        }
-    }
-
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
-
     private async Task Logout()
     {
         // Mostrar alerta de despedida con fondo oscuro y timer
@@ -131,4 +111,5 @@
         // Redirigir a la página principal
         navManager.NavigateTo("/", true);
     }
+
 }
