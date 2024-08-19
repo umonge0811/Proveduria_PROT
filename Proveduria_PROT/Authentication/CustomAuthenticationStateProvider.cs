@@ -27,8 +27,9 @@ namespace Proveduria_PROT.Authentication
 
                 var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
         {
-            new Claim(ClaimTypes.Name, userSession.FullName), // Aquí usamos el nombre completo
-            new Claim(ClaimTypes.Role, userSession.Role)
+            new Claim(ClaimTypes.Name, userSession.FullName),
+            new Claim(ClaimTypes.Role, userSession.Role),
+            new Claim("ProfileImagePath", userSession.ProfileImagePath) // Añadir esta línea
         }, "CustomAuth"));
 
                 return await Task.FromResult(new AuthenticationState(claimsPrincipal));
@@ -46,19 +47,23 @@ namespace Proveduria_PROT.Authentication
             {
                 await _sessionStorage.SetAsync("UserSession", userSession);
                 claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, userSession.UserName),
-                    new Claim(ClaimTypes.Role, userSession.Role)
-
-                }));
-
+        {
+            new Claim(ClaimTypes.Name, userSession.UserName),
+            new Claim(ClaimTypes.Role, userSession.Role),
+            new Claim("FullName", userSession.FullName),
+            new Claim("ProfileImagePath", userSession.ProfileImagePath) // Asegúrate de que se esté agregando esta línea
+        }));
             }
             else
             {
                 await _sessionStorage.DeleteAsync("UserSession");
-                claimsPrincipal= _anonymous;
+                claimsPrincipal = _anonymous;
             }
+
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(claimsPrincipal)));
         }
+
+
+
     }
 }

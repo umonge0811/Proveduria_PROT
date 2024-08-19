@@ -78,7 +78,9 @@
                 UserName = userAccount.UserName,
                 Role = userAccount.Role,
                 FullName = userAccount.Name,
+                ProfileImagePath = userAccount.ProfileImagePath,
             });
+
 
         // Mostrar alerta de éxito con fondo oscuro y timer
         await js.InvokeVoidAsync("Swal.fire", new
