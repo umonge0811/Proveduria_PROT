@@ -1,6 +1,6 @@
 ﻿@page "/crearusuario"
 @attribute [Authorize(Roles = "Administrador")]
-<link href="~/Pages/Crearusuario/Crearusuario.css" rel="stylesheet" />
+<link href="~/Pages/Adminusuario/Crearusuario.css" rel="stylesheet" />
 
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4 m">
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-secondary rounded-pill d-flex align-items-center">
+        <button class="btn btn-secondary rounded-pill d-flex align-items-center" @onclick="NavigateToNuevoUsuario">
             <Heroicon Name="PlusCircle" Style="outline" class="me-2 small-icon" /> Nuevo
         </button>
     </div>
@@ -40,10 +40,10 @@
                     <td>Pedro Fernandez</td>
                     <td>pfernandez01</td>
                     <td>
-                        <button class="btn btn-link p-0 m-0">
+                        <button class="btn btn-link p-0 m-0" @onclick="NavigateToEditarUsuario">
                             <Heroicon Name="Pencil" Style="outline" class="text-success me-2 small-icon" />
                         </button>
-                        <button class="btn btn-link p-0 m-0">
+                        <button class="btn btn-link p-0 m-0" @onclick="MostrarAlertaEliminar">
                             <Heroicon Name="Trash" Style="outline" class="text-danger small-icon" />
                         </button>
                     </td>
@@ -54,10 +54,10 @@
                     <td>Julieta Venegas</td>
                     <td>jvenegas2024</td>
                     <td>
-                        <button class="btn btn-link p-0 m-0">
+                        <button class="btn btn-link p-0 m-0" @onclick="NavigateToEditarUsuario">
                             <Heroicon Name="Pencil" Style="outline" class="text-success me-2 small-icon" />
                         </button>
-                        <button class="btn btn-link p-0 m-0">
+                        <button class="btn btn-link p-0 m-0" @onclick="MostrarAlertaEliminar">
                             <Heroicon Name="Trash" Style="outline" class="text-danger small-icon" />
                         </button>
                     </td>
@@ -68,6 +68,63 @@
     </div>
 </div>
 
+<style>
+    .swal-custom-confirm {
+        background-color: #E5E7EB !important;
+        color: #121212 !important;
+        border-radius: 5px;
+        padding: 10px 30px;
+        width: 200px;
+    }
+
+    .swal-custom-cancel {
+        background-color: #545F71 !important;
+        color: white !important;
+        border-radius: 5px;
+        padding: 10px 30px;
+        width: 200px;
+    }
+
+    .swal2-popup {
+        border-radius: 20px !important;
+        padding: 10px;
+    }
+</style>
+
 @code {
+    [Inject] NavigationManager navManager { get; set; }
+
+    private void NavigateToNuevoUsuario()
+    {
+        navManager.NavigateTo("/usuarionuevo");
+    }
+
+    private void NavigateToEditarUsuario()
+    {
+        navManager.NavigateTo("/editarusuario");
+    }
+
+    private async Task MostrarAlertaEliminar()
+    {
+        await js.InvokeVoidAsync("Swal.fire", new
+        {
+            title = "Esta Seguro de Eliminar Usuario?",
+            text = "Si lo eliminas se perderan los datos del usuario!",
+            showCancelButton = true,
+            cancelButtonText = "Cancel",
+            confirmButtonText = "Aceptar",
+            confirmButtonColor = "#545F71",
+            cancelButtonColor = "#E5E7EB", // Color de fondo del botón Cancelar
+            background = "#121212", // Fondo del modal
+            color = "#545f71", // Color del texto
+            customClass = new
+            {
+                confirmButton = "swal-custom-confirm",
+                cancelButton = "swal-custom-cancel",
+                content = "swal-text-left"
+            }
+        });
+
+    }
 
 }

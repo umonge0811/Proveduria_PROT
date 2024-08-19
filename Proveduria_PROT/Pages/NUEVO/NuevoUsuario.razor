@@ -1,0 +1,118 @@
+﻿@page "/usuarionuevo"
+@attribute [Authorize(Roles = "Administrador")]
+@inject NavigationManager navManager
+
+<link href="~/Pages/Crearusuario/NuevoUsuario.css" rel="stylesheet" />
+
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4 m">
+        <h1>Usuarios Nuevo</h1>
+        
+        
+    </div>
+
+    <hr />
+
+    <!---->
+
+    <div class="mt-5 rounded-3 p-1" style="background-color:#454545">
+        <div class="rounded-3">
+            <div class="container">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="nombre-completo">Nombre Completo</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #282828; color: #d7d7d7; border-right:none; border-radius:5px 0px 0px 5px">
+                                    <Heroicon Name="User" Style="outline" class="small-icon" />
+                                </span>
+                                <input id="nombre-completo" type="text" class="form-control" placeholder="Ingresa tu Nombre Completo" style="background-color: #282828; color: #d7d7d7; border-left:none; border-radius:0px 5px 5px 0px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="id-usuario">ID Usuario</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #282828; color: #d7d7d7; border-right:none; border-radius:5px 0px 0px 5px">
+                                    <Heroicon Name="Identification" Style="outline" class="small-icon" />
+                                </span>
+                                <input id="id-usuario" type="text" class="form-control" placeholder="Ingresa tu ID Usuario" style="background-color: #282828; color: #d7d7d7; border-left:none; border-radius:0px 5px 5px 0px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: #282828; color: #d7d7d7; border-right:none; border-radius:5px 0px 0px 5px">
+                                    <Heroicon Name="Mail" Style="outline" class="small-icon" />
+                                </span>
+                                <input id="email" type="email" class="form-control" placeholder="Correo Electrónico" style="background-color: #282828; color: #d7d7d7; border-left:none; border-radius:0px 5px 5px 0px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3 mt-2">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="roles">Roles</label>
+                            <select id="roles" class="form-select" style="background-color: #282828; color: #d7d7d7; border-radius: 5px;">
+                                <option>Elige Rol de Compras</option>
+                                <option>Comprador</option>
+                                <option>Jefatura</option>
+                                <option>Aprob Compras 1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-8 d-flex justify-content-center align-items-center m-0" style="background-color:#404040; height: 100%; padding: 20px; border-radius: 8px;">
+                        <div class="col-md-8 d-flex justify-content-center align-items-center m-0" style="background-color:#404040">
+                            <div class="profile-picture-upload text-center">
+                                <div class="profile-picture">
+                                    <Heroicon Name="UserCircle" Style="outline" class="large-icon" />
+                                </div>
+                                <button class="upload-button mt-3 rounded-3">
+                                    <Heroicon Name="Camera" Style="outline" class="small-icon" /> Subir Foto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---->
+<div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-secondary me-2 d-flex align-items-center justify-content-between" @onclick="Cancelar">
+        Cancelar <Heroicon Name="XMark" Style="outline" class="small-icon ms-1" />
+    </button>
+    <button class="btn btn-primary d-flex align-items-center justify-content-between" @onclick="CrearUsuario">
+        Crear <Heroicon Name="PlusCircle" Style="outline" class="small-icon ms-1" />
+    </button>
+</div>
+
+
+
+@code {
+    private string imagenPerfil = "img/default-profile.png"; // Ruta a la imagen de perfil por defecto
+
+    private void CargarImagen(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        // Lógica para cargar la imagen
+    }
+
+    private void Cancelar()
+    {
+        navManager.NavigateTo("/crearusuario");
+    }
+
+    private void CrearUsuario()
+    {
+        // Lógica para crear el usuario
+    }
+
+}
