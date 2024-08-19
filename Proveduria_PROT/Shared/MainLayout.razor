@@ -16,7 +16,8 @@
         <div class="top-row px-4 navbar-dark bg-dark">
             <AuthorizeView>
                 <Authorized>
-                    <a @onclick="Logout" href="javascript:void(0)">Salir</a>
+                    <Heroicon Name="cog-8-tooth" Style="outline" class="me-2 small-icon" />
+                    <Heroicon Name="bell" Style="outline" class="me-2 small-icon" />
                 </Authorized>
            
                 <NotAuthorized>
@@ -33,11 +34,5 @@
 
 @code
 {
-    private async Task Logout()
-    {
-        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
-        await customAuthStateProvider.UpdateAuthenticationState(null);
-        navManager.NavigateTo("/", true);
-
-    }
+    
 }

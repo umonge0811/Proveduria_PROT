@@ -1,0 +1,73 @@
+﻿@page "/crearusuario"
+@attribute [Authorize(Roles = "Administrador")]
+<link href="~/Pages/Crearusuario/Crearusuario.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4 m">
+        <h1>Usuarios</h1>
+        <div class="input-group" style="max-width: 400px;">
+            <div class="form-group w-100">
+                <label for="searchInput" class="form-label text-muted">Búsqueda de Usuarios</label>
+                <div class="input-group">
+                    <input id="searchInput" type="text" class="form-control" placeholder="Ingresa el parámetro de Búsqueda" style="background-color: #282828; color: #d7d7d7;border-right:none; border-radius:10px 0px 0px 10px">
+                    <span class="input-group-text" style="background-color: #282828;color: #d7d7d7; border-left:none; border-radius:0px 10px 10px 0px">
+                        <Heroicon Name="MagnifyingGlass" Style="outline; " class="small-icon" />
+                    </span>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-secondary rounded-pill d-flex align-items-center">
+            <Heroicon Name="PlusCircle" Style="outline" class="me-2 small-icon" /> Nuevo
+        </button>
+    </div>
+
+    <hr />
+
+    <div class="table-responsive mt-5 rounded-3">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Cod</th>
+                    <th scope="col">Nombre Completo</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Acción</th>
+                    <th scope="col">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>Pedro Fernandez</td>
+                    <td>pfernandez01</td>
+                    <td>
+                        <button class="btn btn-link p-0 m-0">
+                            <Heroicon Name="Pencil" Style="outline" class="text-success me-2 small-icon" />
+                        </button>
+                        <button class="btn btn-link p-0 m-0">
+                            <Heroicon Name="Trash" Style="outline" class="text-danger small-icon" />
+                        </button>
+                    </td>
+                    <td><span class="text-success">Activo</span></td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Julieta Venegas</td>
+                    <td>jvenegas2024</td>
+                    <td>
+                        <button class="btn btn-link p-0 m-0">
+                            <Heroicon Name="Pencil" Style="outline" class="text-success me-2 small-icon" />
+                        </button>
+                        <button class="btn btn-link p-0 m-0">
+                            <Heroicon Name="Trash" Style="outline" class="text-danger small-icon" />
+                        </button>
+                    </td>
+                    <td><span class="text-danger">Inactivo</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+
+}
