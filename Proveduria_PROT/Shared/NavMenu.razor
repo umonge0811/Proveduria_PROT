@@ -77,6 +77,29 @@
 
 
         <!--INICIO JEFATURA-->
+        <AuthorizeView Roles="Jefe Departamento">
+             <Authorized>
+        <div class="nav-item px-3">
+                    <NavLink class="nav-link text-white d-flex justify-content-between align-items-center" href="ordenesjefedep">
+                <div>
+                    <Heroicon Name="clipboard-document-list" Style="outline" class="me-2 small-icon" />
+                    Ordenes
+                </div>
+                <Heroicon Name="chevron-right" Style="outline" class="small-icon" />
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link text-white d-flex justify-content-between align-items-center" href="reportescomp">
+                <div>
+                    <Heroicon Name="document-arrow-down" Style="outline" class="me-2 small-icon" />
+                    Ordenes Reportes
+                </div>
+                <Heroicon Name="chevron-right" Style="outline" class="small-icon" />
+            </NavLink>
+        </div>
+            </Authorized>
+        </AuthorizeView>
+
         <!--FIN JEFATURA-->
 
     </nav>

@@ -1,0 +1,52 @@
+﻿.container {
+    max-width: 800px;
+    background-color: #121212;
+    color: white;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.table th, .table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    border-top: 1px solid #333;
+}
+
+.table thead th {
+    border-bottom: 2px solid #333;
+}
+
+.btn-secondary {
+    background-color: #545F71;
+    color: white;
+}
+
+.input-group .form-control {
+    background-color: #282828; /* Fondo oscuro para el input */
+    color: #545F71;
+    border-color: #545F71;
+    border-radius: 8px;
+}
+
+.input-group .btn-outline-secondary {
+    background-color: #545F71;
+    border-color: #545F71;
+    color: white;
+    border-radius: 0 8px 8px 0;
+}
+
+.small-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.divider {
+    width: 100%;
+    border-bottom: 1px solid #333333;
+    margin-bottom: 20px; /* Espacio debajo de la línea */
+}
+
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+}
