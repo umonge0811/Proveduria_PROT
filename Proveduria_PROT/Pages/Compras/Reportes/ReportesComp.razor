@@ -1,10 +1,10 @@
-﻿@page "/estadoordenes"
+﻿@page "/reportescomp"
 @attribute [Authorize(Roles = "Comprador")]
 <link href="~/Pages/Adminusuario/Crearusuario.css" rel="stylesheet" />
 
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4 m">
-        <h1>Estado Ordenes</h1>   
+        <h1>Reportes Ordenes</h1>
     </div>
 
     <hr />
@@ -24,23 +24,38 @@
     </div>
 
     <div class="table-responsive mt-5 rounded-3" style="max-width: 600px; margin: 0 auto;">
-        <table class="table table-dark table-striped table-condensed  text-center">
+        <table class="table table-dark table-striped table-condensed text-center">
             <thead>
                 <tr>
                     <th scope="col">Orden</th>
                     <th scope="col">Fecha de Solicitud</th>
-                    <th scope="col">Ultima Actualización</th>
-                    <th scope="col">Monto</th>
+                    <th scope="col">Acción</th>                    
                     <th scope="col">Estado</th>
+                    <th scope="col">Exportar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>001</td>
-                    <td>19-06-2024 06:00</td>
-                    <td>19-06-2024 11:43</td>
-                    <td>¢22.687</td>
-                    <td><span class="text-success">Aprobado</span></td>
+                    <td>19-06-2024 06:00</td>                   
+                    <td>
+                        <button class="btn btn-link p-0 m-0" @onclick="VisualizarPDF">
+                            <Heroicon Name="eye" Style="outline" class="text-info me-2 small-icon" />
+                        </button>
+
+                    </td>
+                    <td>
+                        <span class="text-success">Aprobado</span>
+
+                    </td>
+                    <td>
+                        <button class="btn btn-link p-0 m-0" @onclick="DescargarPDF">
+                            <Heroicon Name="arrow-down-tray" Style="outline" class="text-info me-2 small-icon" />
+                        </button>
+
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    </td>
+                    
                 </tr>
             </tbody>
         </table>
@@ -48,6 +63,8 @@
 
 
 </div>
+
+<script src="js/site.js"></script>
 
 <style>
     .swal-custom-confirm {
@@ -75,37 +92,32 @@
 @code {
     [Inject] NavigationManager navManager { get; set; }
 
-    private void NavigateToNuevoUsuario()
-    {
-        navManager.NavigateTo("/usuarionuevo");
-    }
+   
 
-    private void NavigateToEditarUsuario()
-    {
-        navManager.NavigateTo("/editarusuario");
-    }
 
-    private async Task MostrarAlertaEliminar()
+    private async Task VisualizarPDF()
     {
+        var pdfUrl = "img/demo.pdf";
+        await js.InvokeVoidAsync("window.open", pdfUrl, "_blank");
+    }   
+
+   
+    private async Task DescargarPDF()
+    {
+        var pdfUrl = "img/demo.pdf";
+        await js.InvokeVoidAsync("downloadFile", pdfUrl);
+
+        // se muestra un mensaje después de la descarga
         await js.InvokeVoidAsync("Swal.fire", new
         {
-            title = "Esta Seguro de Eliminar Usuario?",
-            text = "Si lo eliminas se perderan los datos del usuario!",
-            showCancelButton = true,
-            cancelButtonText = "Cancel",
-            confirmButtonText = "Aceptar",
+            title = "Descarga Completada",
+            text = "El archivo PDF se ha descargado exitosamente.",
+            icon = "success",
             confirmButtonColor = "#545F71",
-            cancelButtonColor = "#E5E7EB", // Color de fondo del botón Cancelar
-            background = "#121212", // Fondo del modal
-            color = "#545f71", // Color del texto
-            customClass = new
-            {
-                confirmButton = "swal-custom-confirm",
-                cancelButton = "swal-custom-cancel",
-                content = "swal-text-left"
-            }
+            background = "#121212", // Fondo 
+            color = "#ffffff" // Color del texto
         });
-
     }
+
 
 }
