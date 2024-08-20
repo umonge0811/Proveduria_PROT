@@ -89,7 +89,7 @@
     <button class="btn btn-secondary me-2 d-flex align-items-center justify-content-between" @onclick="Cancelar">
         Cancelar <Heroicon Name="XMark" Style="outline" class="small-icon ms-1" />
     </button>
-    <button class="btn btn-primary d-flex align-items-center justify-content-between" @onclick="CrearUsuario">
+    <button class="btn btn-primary d-flex align-items-center justify-content-between">
         Crear <Heroicon Name="PlusCircle" Style="outline" class="small-icon ms-1" />
     </button>
 </div>
@@ -97,22 +97,12 @@
 
 
 @code {
-    private string imagenPerfil = "img/default-profile.png"; // Ruta a la imagen de perfil por defecto
-
-    private void CargarImagen(InputFileChangeEventArgs e)
-    {
-        var file = e.File;
-        // Lógica para cargar la imagen
-    }
+   
 
     private void Cancelar()
     {
         navManager.NavigateTo("/crearusuario");
     }
 
-    private void CrearUsuario()
-    {
-        // Lógica para crear el usuario
-    }
 
 }

@@ -1,0 +1,168 @@
+﻿@page "/nuevaorden"
+@attribute [Authorize(Roles = "Comprador")]
+@inject NavigationManager navManager
+
+<link href="~/Pages/NuevaOrden/NuevaOrden.css" rel="stylesheet" />
+
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4 m">
+        <h1>Nueva Orden</h1>
+    </div>
+
+    <hr />
+
+    <!---->
+    <div class="container">
+        <div class="mt-5 rounded-3 p-3" style="background-color:#454545">
+            <div class="rounded-3">
+                <div class="container">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="articulo">Artículo</label>
+                                <div class="input-group">
+                                    <input id="articulo" type="text" class="form-control" placeholder="Nombre del Artículo" style="background-color: #282828; color: #d7d7d7; border: 1px solid #545f71; border-radius: 5px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="modelo">Modelo</label>
+                                <div class="input-group">
+                                    <input id="modelo" type="text" class="form-control" placeholder="Ingrese Modelo" style="background-color: #282828; color: #d7d7d7; border: 1px solid #545f71; border-radius: 5px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="monto-sin-iva">Monto sin I.V.A</label>
+                                <div class="input-group">
+                                    <input id="monto-sin-iva" type="text" class="form-control" placeholder="Ingrese el Monto sin IVA" style="background-color: #282828; color: #d7d7d7; border: 1px solid #545f71; border-radius: 5px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="iva">% I.V.A</label>
+                                <div class="input-group">
+                                    <input id="iva" type="text" class="form-control" placeholder="Ingrese el % del Imp" style="background-color: #282828; color: #d7d7d7; border: 1px solid #545f71; border-radius: 5px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="cantidad">Cantidad</label>
+                                <div class="input-group">
+                                    <select id="cantidad" class="form-select" style="background-color: #282828; color: #d7d7d7; border: 1px solid #545f71; border-radius: 5px;">
+                                        <option>Elije la Cantidad</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="moneda">Moneda</label>
+                                <div class="input-group">
+                                    <select id="moneda" class="form-select" style="background-color: #282828; color: #d7d7d7; border: 1px solid #545f71; border-radius: 5px;">
+                                        <option>Dolares</option>
+                                        <option>Colones</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="comentarios">Comentarios del Solicitante</label>
+                                <textarea id="comentarios" class="form-control" rows="3" placeholder="Comentarios del Solicitante" style="background-color: #282828; color: #d7d7d7; border: 1px solid #545f71; border-radius: 5px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-3">
+            <button class="btn  me-2 d-flex align-items-center justify-content-between" @onclick="Cancelar" style="background-color:#eef1f4;">
+                Limpiar <Heroicon Name="XMark" Style="outline" class="small-icon ms-1" />
+            </button>
+            <button class="btn  d-flex align-items-center justify-content-between" style="background-color:#545f71; color:whitesmoke;">
+                Agregar <Heroicon Name="PlusCircle" Style="outline" class="small-icon ms-1" />
+            </button>
+        </div>
+
+        <div class="table-responsive mt-5 rounded-3">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Articulo</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Monto S.I.V</th>
+                        <th scope="col">Monto I.V.A</th>
+                        <th scope="col">Monto Total</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Articulo 1</td>
+                        <td>Marca 1</td>
+                        <td>Modelo 1</td>
+                        <td>1</td>
+                        <td>¢9.700</td>
+                        <td>¢1.300</td>
+                        <td>¢10.000</td>
+
+
+                    </tr>
+                    <tr>
+                        <td>Articulo 2</td>
+                        <td>Marca 2</td>
+                        <td>Modelo 2</td>
+                        <td>1</td>
+                        <td>¢11.037.69</td>
+                        <td>¢1.649.31</td>
+                        <td>¢12.687</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <button class="btn  me-2 d-flex align-items-center justify-content-between" @onclick="Cancelar" style="background-color:#eef1f4;">
+                Limpiar <Heroicon Name="XMark" Style="outline" class="small-icon ms-1" />
+            </button>
+            <button class="btn  d-flex align-items-center justify-content-between" style="background-color:#545f71; color:whitesmoke;">
+                Enviar <Heroicon Name="paper-airplane" Style="outline" class="small-icon ms-1" />
+            </button>
+        </div>
+    </div>
+
+
+
+</div>
+
+<!-- -->
+
+
+
+
+@code {
+
+
+    private void Cancelar()
+    {
+        navManager.NavigateTo("/");
+    }
+
+
+}
