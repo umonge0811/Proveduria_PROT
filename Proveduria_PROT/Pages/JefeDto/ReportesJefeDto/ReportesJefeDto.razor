@@ -1,0 +1,180 @@
+﻿@page "/reportesjefedto"
+@attribute [Authorize(Roles = "Jefe Departamento")]
+<link href="~/Pages/Adminusuario/Crearusuario.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4 m">
+        <h1>Reportes Ordenes</h1>
+    </div>
+
+    <hr />
+
+    <div class="d-flex justify-content-center">
+        <div class="input-group" style="max-width: 400px;">
+            <div class="form-group w-100">
+                <label for="searchInput" class="form-label text-muted">Ordenes</label>
+                <div class="input-group">
+                    <input id="searchInput" type="text" class="form-control" placeholder="Ingrese el Número de Orden" style="background-color: #282828; color: #d7d7d7;border-right:none; border-radius:10px 0px 0px 10px">
+                    <span class="input-group-text" style="background-color: #282828;color: #d7d7d7; border-left:none; border-radius:0px 10px 10px 0px">
+                        <Heroicon Name="MagnifyingGlass" Style="outline; " class="small-icon" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive mt-5 rounded-3" style="max-width: 600px; margin: 0 auto;">
+        <table class="table table-dark table-striped table-condensed text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Orden</th>
+                    <th scope="col">Fecha de Solicitud</th>
+                    <th scope="col">Acción</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Exportar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>19-06-2024 06:00</td>
+                    <td>
+                        <button class="btn btn-link p-0 m-0" @onclick="VisualizarPDF">
+                            <Heroicon Name="eye" Style="outline" class="text-info me-2 small-icon" />
+                        </button>
+                    </td>
+                    <td>
+                        <span class="text-success">Aprobado</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-link p-0 m-0" @onclick="DescargarPDF">
+                            <Heroicon Name="arrow-down-tray" Style="outline" class="text-info me-2 small-icon" />
+                        </button>
+                        <input class="form-check-input" type="checkbox" @onchange='e => UpdateSelection(e, "001")'>
+                    </td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>19-06-2024 08:00</td>
+                    <td>
+                        <button class="btn btn-link p-0 m-0" @onclick="VisualizarPDF">
+                            <Heroicon Name="eye" Style="outline" class="text-info me-2 small-icon" />
+                        </button>
+                    </td>
+                    <td>
+                        <span class="text-success">Aprobado</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-link p-0 m-0" @onclick="DescargarPDF">
+                            <Heroicon Name="arrow-down-tray" Style="outline" class="text-info me-2 small-icon" />
+                        </button>
+                        <input class="form-check-input" type="checkbox" @onchange='e => UpdateSelection(e, "002")'>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @if (MostrarBotonDescargar)
+    {
+        <div class="d-flex justify-content-center mt-3">
+            <button class="btn btn-primary mt-3" @onclick="DescargarSeleccionados">Descargar Seleccionados</button>
+        </div>
+    }
+</div>
+
+<script src="js/site.js"></script>
+
+<style>
+    .swal-custom-confirm {
+        background-color: #E5E7EB !important;
+        color: #121212 !important;
+        border-radius: 5px;
+        padding: 10px 30px;
+        width: 200px;
+    }
+
+    .swal-custom-cancel {
+        background-color: #545F71 !important;
+        color: white !important;
+        border-radius: 5px;
+        padding: 10px 30px;
+        width: 200px;
+    }
+
+    .swal2-popup {
+        border-radius: 20px !important;
+        padding: 10px;
+    }
+</style>
+
+@code {
+    [Inject] NavigationManager navManager { get; set; }
+
+    private List<string> selectedOrders = new List<string>();
+
+    private bool MostrarBotonDescargar => selectedOrders.Count > 1;
+
+    private void UpdateSelection(ChangeEventArgs e, string orderId)
+    {
+        var isChecked = (bool)e.Value;
+        if (isChecked)
+        {
+            if (!selectedOrders.Contains(orderId))
+            {
+                selectedOrders.Add(orderId);
+            }
+        }
+        else
+        {
+            if (selectedOrders.Contains(orderId))
+            {
+                selectedOrders.Remove(orderId);
+            }
+        }
+        StateHasChanged(); // Forzar la actualización de la UI
+    }
+
+    private async Task VisualizarPDF()
+    {
+        var pdfUrl = "img/demo.pdf";
+        await js.InvokeVoidAsync("window.open", pdfUrl, "_blank");
+    }
+
+    private async Task DescargarPDF()
+    {
+        var pdfUrl = "img/demo.pdf";
+        await js.InvokeVoidAsync("downloadFile", pdfUrl);
+
+        // Mostrar mensaje de éxito
+        await js.InvokeVoidAsync("Swal.fire", new
+        {
+            title = "Descarga Completada",
+            text = "El archivo PDF se ha descargado exitosamente.",
+            icon = "success",
+            confirmButtonColor = "#545F71",
+            background = "#121212", // Fondo del modal
+            color = "#ffffff" // Color del texto
+        });
+    }
+
+    private async Task DescargarSeleccionados()
+    {
+        foreach (var orderId in selectedOrders)
+        {
+            var pdfUrl = $"img/{orderId}.pdf";
+            await js.InvokeVoidAsync("downloadFile", pdfUrl);
+        }
+
+        // Mostrar mensaje de éxito
+        await js.InvokeVoidAsync("Swal.fire", new
+        {
+            title = "Descarga Completada",
+            text = "Los archivos PDF se han descargado exitosamente.",
+            icon = "success",
+            confirmButtonColor = "#545F71",
+            background = "#121212", // Fondo del modal
+            color = "#ffffff" // Color del texto
+        });
+    }
+}
