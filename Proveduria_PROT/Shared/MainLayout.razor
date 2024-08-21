@@ -2,6 +2,11 @@
 @inherits LayoutComponentBase
 @inject AuthenticationStateProvider authStateProvider
 @inject NavigationManager navManager
+@inject IJSRuntime js
+<head>    
+        <link href="_content/Syncfusion.Blazor.Themes/bootstrap5.css" rel="stylesheet" />
+        <script src="_content/Syncfusion.Blazor.Core/scripts/syncfusion-blazor.min.js" type="text/javascript"></script>    
+</head>
 
 
 
@@ -13,17 +18,29 @@
     </div>
 
     <main>
-        <div class="top-row px-4 navbar-dark bg-dark">
+        <div class="top-row px-4  navbar-dark bg-dark">
+            
+
             <AuthorizeView>
                 <Authorized>
-                    <Heroicon Name="cog-8-tooth" Style="outline" class="me-2 small-icon" />
+                    <Syncfusion.Blazor.SplitButtons.SfDropDownButton CssClass="custom-dropdown-button">
+                        <Heroicon Name="cog-8-tooth" Style="background-color:#323232;" class="small-icon" />
+                        <Syncfusion.Blazor.SplitButtons.DropDownMenuItems>
+                            <Syncfusion.Blazor.SplitButtons.DropDownMenuItem Text="Cambiar Contraseña"></Syncfusion.Blazor.SplitButtons.DropDownMenuItem>
+                            <Syncfusion.Blazor.SplitButtons.DropDownMenuItem Text="Salir"></Syncfusion.Blazor.SplitButtons.DropDownMenuItem>
+                        </Syncfusion.Blazor.SplitButtons.DropDownMenuItems>
+                        <Syncfusion.Blazor.SplitButtons.DropDownButtonEvents ItemSelected="MostrarAlertaCambioPass"></Syncfusion.Blazor.SplitButtons.DropDownButtonEvents>
+                    </Syncfusion.Blazor.SplitButtons.SfDropDownButton>                    
+              
+                  
                     <Heroicon Name="bell" Style="outline" class="me-2 small-icon" />
                 </Authorized>
            
                 <NotAuthorized>
                     <a href="/login" class="d-flex align-items-center">
                         <Heroicon Name="Power" Style="outline" class="small-icon" />
-                    </a>
+                    </a>               
+
                 </NotAuthorized>
             </AuthorizeView>
         </div>
@@ -34,7 +51,135 @@
     </main>
 </div>
 
-@code
-{
+<script>
+    function MostrarSegundaAlerta() {
+        DotNet.invokeMethodAsync('Proveduria_PROT', 'MostrarSegundaAlerta');
+    }
+</script>
+
+<style>
+    /* Ocultar la flecha del botón desplegable */
+    .custom-dropdown-button .e-caret {
+        display: none;
+    }
+
+    /* Eliminar bordes y hacer el fondo del botón transparente */
+    .custom-dropdown-button .e-dropdown-btn {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+    }
+
+    /* Estilo oscuro para el menú desplegable */
+    .custom-dropdown-button .e-dropdown-menu {
+        background-color: #282828;
+        color: #d7d7d7;
+        border-radius: 5px;
+    }
+
+        .custom-dropdown-button .e-dropdown-menu .e-item:hover {
+            background-color: #3a3a3a;
+            color: white;
+        }
+
+    .e-btn.e-icon-btn, .e-css.e-btn.e-icon-btn {
+         padding:5px
+    }
+
+    .e-btn, .e-css.e-btn {
+        background-color: #212529;
+        border-color: #212529;
+    }
+
+    .swal-custom-confirm {
+        background-color: #E5E7EB !important;
+        color: #121212 !important;
+        border-radius: 15px;
+        padding: 10px 30px;
+        width: 300px;
+
+    }
+
+    .swal-custom-cancel {
+        background-color: #545F71 !important;
+        color: white !important;
+        border-radius: 5px;
+        padding: 10px 30px;
+        width: 200px;
+    }
+
+    .swal2-popup {
+        border-radius: 20px !important;
+        padding: 20px;
+    }
+    
+</style>
+
+
+
+@code{
+   
+
+    private async Task MostrarAlertaCambioPass()
+    {
+        // Mostrar la primera alerta con un temporizador
+        await js.InvokeVoidAsync("Swal.fire", new
+        {
+            title = "Revisa tu Email",
+            text = "Se ha enviado un correo electrónico con una clave temporal, es necesario cambiarla al ingresar.",
+            timer = 2000, 
+            showConfirmButton = false,
+            background = "#121212",
+            color = "#545f71",
+            customClass = new
+            {
+                popup = "swal-custom-popup"
+            }
+        });
+
+        // Esperar a que la primera alerta se cierre
+        await Task.Delay(1000); // Añade un pequeño buffer para asegurar que la primera alerta se cierre completamente
+
+        // Mostrar la segunda alerta
+        await MostrarSegundaAlerta();
+    }
+
+    private async Task MostrarSegundaAlerta()
+    {
+        // Mostrar la segunda alerta que requiere confirmación
+        await js.InvokeVoidAsync("Swal.fire", new
+        {
+            title = "<span style='color: white;'>Cambio de Contraseña</span>",
+            html = @"
+            <input type='text' id='codigo' class='swal2-input' placeholder='Código Verificación' style='background-color: #323232; color: #d7d7d7;'>
+            <input type='password' id='nuevaPass' class='swal2-input' placeholder='Nueva Contraseña' style='background-color: #323232; color: #d7d7d7;'>
+            <input type='password' id='repitePass' class='swal2-input' placeholder='Repite la Contraseña' style='background-color: #323232; color: #d7d7d7;'>
+        ",
+            confirmButtonText = "Cambiar Contraseña",
+            confirmButtonColor = "#545F71",
+            background = "#121212",
+            color = "#545f71",
+            customClass = new
+            {
+                confirmButton = "swal-custom-confirm",
+                content = "swal-text-left"
+            }
+        });
+    }
+
+
+    
+
+
+    
+    
+
+    private async Task CerrarSesion()
+    {
+        // Lógica para cerrar sesión
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        navManager.NavigateTo("/login", true);
+    }
     
 }

@@ -37,6 +37,7 @@
 
 .small-icon {
     width: 16px;
+    margin: 0 !important;
     height: 16px;
 }
 

@@ -1,0 +1,93 @@
+﻿.about-container {
+    background-color: #121212;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    border-radius: 15px;
+    padding: 40px; /* Más espacio interior */
+}
+
+.logo-container {
+    background-color: #2b2b2b;
+    width: 200px; /* Logo más grande */
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 0 auto 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra sutil al logo */
+}
+
+.university-logo {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+h1, h2 {
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif; /* Fuente elegante */
+    text-align: center; /* Centrar títulos */
+}
+
+h1 {
+    font-size: 3.5em;
+    font-weight: 700; /* Mayor grosor */
+}
+
+h2 {
+    font-size: 2.2em;
+}
+
+p, ul {
+    color: #c0c0c0;
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6; /* Mejorar legibilidad */
+}
+
+ul {
+    list-style: none; /* Quitar viñetas */
+    padding: 0;
+}
+
+    ul li {
+        margin-bottom: 10px;
+        position: relative; /* Para posicionar el ícono */
+    }
+
+        ul li::before {
+            content: "\2022"; /* Viñeta personalizada */
+            color: #007bff; /* Color azul */
+            font-size: 1.2em;
+            position: absolute;
+            left: -20px;
+            top: 2px;
+        }
+
+.social-icon {
+    font-size: 16px;
+    margin: 0 15px;
+    transition: transform 0.3s ease;
+}
+
+    .social-icon:hover {
+        transform: scale(1.2); /* Aumento más notorio al pasar el mouse */
+    }
+
+/* Íconos de redes sociales con sus colores originales */
+.bi-linkedin {
+    color: #0077b5;
+}
+
+.bi-facebook {
+    color: #4267B2;
+}
+
+.bi-instagram {
+    color: #E1306C;
+}
+
+.bi-tiktok {
+    color: #000000;
+}

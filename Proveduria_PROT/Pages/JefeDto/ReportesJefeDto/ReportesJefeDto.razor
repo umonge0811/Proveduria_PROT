@@ -1,5 +1,5 @@
 ﻿@page "/reportesjefedto"
-@attribute [Authorize(Roles = "Jefe Departamento")]
+@attribute [Authorize(Roles = "Jefe Departamento, Aprobador")]
 <link href="~/Pages/Adminusuario/Crearusuario.css" rel="stylesheet" />
 
 <div class="container">
@@ -40,7 +40,7 @@
                     <td>19-06-2024 06:00</td>
                     <td>
                         <button class="btn btn-link p-0 m-0" @onclick="VisualizarPDF">
-                            <Heroicon Name="eye" Style="outline" class="text-info me-2 small-icon" />
+                            <Heroicon Name="eye" Style="" class="text-info me-2 small-icon" />
                         </button>
                     </td>
                     <td>
@@ -57,15 +57,15 @@
                     <td>002</td>
                     <td>19-06-2024 08:00</td>
                     <td>
-                        <button class="btn btn-link p-0 m-0" @onclick="VisualizarPDF">
-                            <Heroicon Name="eye" Style="outline" class="text-info me-2 small-icon" />
+                        <button class="btn btn-link p-0 m-0 align-content-center" @onclick="VisualizarPDF">
+                            <Heroicon Name="eye" Style="outline" class="text-info me-2 small-icon align-content-center" />
                         </button>
                     </td>
                     <td>
                         <span class="text-success">Aprobado</span>
                     </td>
                     <td>
-                        <button class="btn btn-link p-0 m-0" @onclick="DescargarPDF">
+                        <button class="btn btn-link p-0 m-0  text-center" @onclick="DescargarPDF">
                             <Heroicon Name="arrow-down-tray" Style="outline" class="text-info me-2 small-icon" />
                         </button>
                         <input class="form-check-input" type="checkbox" @onchange='e => UpdateSelection(e, "002")'>

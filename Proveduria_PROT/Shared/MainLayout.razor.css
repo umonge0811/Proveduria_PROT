@@ -68,3 +68,31 @@ main {
         padding-right: 1.5rem !important;
     }
 }
+.dropdown .btn-link {
+    text-decoration: none;
+    border: none;
+    box-shadow: none;
+}
+
+.dropdown-menu-dark {
+    background-color: #282828;
+    border-radius: 5px;
+    min-width: 200px; /* Ajusta el ancho del dropdown si es necesario */
+}
+
+.dropdown-item {
+    color: #d7d7d7;
+    display: flex;
+    align-items: center;
+}
+
+    .dropdown-item:hover {
+        background-color: #545f71;
+        color: white;
+    }
+
+.small-icon {
+    width: 20px;
+    height: 20px;
+    color: #d7d7d7;
+}
