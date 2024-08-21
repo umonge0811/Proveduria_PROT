@@ -115,7 +115,7 @@
 
     private bool MostrarBotonDescargar => selectedOrders.Count > 1;
 
-    private void UpdateSelection(ChangeEventArgs e, string orderId)
+    private void UpdateSelection(Microsoft.AspNetCore.Components.ChangeEventArgs e, string orderId)
     {
         var isChecked = (bool)e.Value;
         if (isChecked)

@@ -22,7 +22,10 @@
             
 
             <AuthorizeView>
+
                 <Authorized>
+                   
+                   
                     <Syncfusion.Blazor.SplitButtons.SfDropDownButton CssClass="custom-dropdown-button">
                         <Heroicon Name="cog-8-tooth" Style="background-color:#323232;" class="small-icon" />
                         <Syncfusion.Blazor.SplitButtons.DropDownMenuItems>
@@ -32,8 +35,9 @@
                         <Syncfusion.Blazor.SplitButtons.DropDownButtonEvents ItemSelected="MostrarAlertaCambioPass"></Syncfusion.Blazor.SplitButtons.DropDownButtonEvents>
                     </Syncfusion.Blazor.SplitButtons.SfDropDownButton>                    
               
-                  
-                    <Heroicon Name="bell" Style="outline" class="me-2 small-icon" />
+                  <div>
+                        <Heroicon Name="bell" Style="outline" class="me-2 small-icon " />
+                  </div>
                 </Authorized>
            
                 <NotAuthorized>

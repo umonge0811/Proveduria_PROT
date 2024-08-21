@@ -66,13 +66,13 @@ ul {
         }
 
 .social-icon {
-    font-size: 16px;
+    font-size: 32px;
     margin: 0 15px;
     transition: transform 0.3s ease;
 }
 
     .social-icon:hover {
-        transform: scale(1.2); /* Aumento más notorio al pasar el mouse */
+        transform: scale(2.2); /* Aumento más notorio al pasar el mouse */
     }
 
 /* Íconos de redes sociales con sus colores originales */
